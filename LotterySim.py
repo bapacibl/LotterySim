@@ -68,13 +68,15 @@ def DrawSupps():
 # Division 7: Any 3 main winning numbers and either supplementary number
 
 def CheckTicket():
+    Counter = 0
     WinnerTicker = 0
     SuppCatch = False
-    for i in TicketNums:
-        if TicketNums[i-1] in WinningNums:
+    while Counter > len(TicketNums):
+        if TicketNums[Counter] in WinningNums:
             WinnerTicker += 1
-        elif TicketNums[i-1] in SuppNums:
+        elif TicketNums[Counter] in SuppNums:
             SuppCatch = True
+        counter += 1
     if WinnerTicker == 7:
         return 1
     elif (WinnerTicker == 6) and (SuppCatch):
