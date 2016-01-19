@@ -45,11 +45,11 @@ def DrawWinners():
 
 
 # Draws the supplementary numbers from the pool
-def DrawSupps(Drawn):
+def DrawSupps():
     Supps = []
     while len(Supps) < NumSupp:
         BallDraw = randint (1, BallPool)
-        if (BallDraw not in Drawn) and (BallDraw not in Supps):
+        if (BallDraw not in WinningNums) and (BallDraw not in Supps):
             Supps.append(BallDraw)
     return Supps
 
@@ -109,7 +109,7 @@ TicketNums = PlayerInput()
 
 while DivisionWon != 1:
     WinningNums = DrawWinners()
-    SuppNums = DrawSupps(WinningNums)
+    SuppNums = DrawSupps()
     DivisionWon = CheckTicket()
     if DivisionWon > 0:
         Victories[DivisionWon - 1] += 1
