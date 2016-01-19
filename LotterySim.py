@@ -14,7 +14,6 @@
 from random import *
 
 
-
 # Player inputs the numbers they want to play the lottery with
 def PlayerInput():
     TicketNums = []
@@ -35,7 +34,6 @@ def PlayerInput():
 # Draws the winning numbers out of the pool
 def DrawWinners():
     WinningNums = []
-    print("Week " + str(WeekNum))
     while len(WinningNums) < NumSelected:
         BallDraw = randint(1, BallPool)
         if BallDraw not in WinningNums:
@@ -71,12 +69,14 @@ def CheckTicket():
     Counter = 0
     WinnerTicker = 0
     SuppCatch = False
-    while Counter > len(TicketNums):
+    while Counter < len(TicketNums):
         if TicketNums[Counter] in WinningNums:
             WinnerTicker += 1
         elif TicketNums[Counter] in SuppNums:
             SuppCatch = True
         Counter += 1
+
+
     if WinnerTicker == 7:
         return 1
     elif (WinnerTicker == 6) and (SuppCatch):
@@ -117,8 +117,9 @@ while DivisionWon != 1:
         Victories[DivisionWon - 1] += 1
     WeekNum += 1
 
+    print 'Week {0:7} | {1:28} | {2:8} | {3:25}'.format(WeekNum, WinningNums, SuppNums, Victories)
+
 print("You finally won Div 1!")
 print("It only took " + str(WeekNum) + " weeks!")
 print("That's equal to " + str(WeekNum * 7 / 365.25) + "  years!")
-# Victories counts how many wins you've had in all the divisions.
 print(Victories)
