@@ -76,7 +76,7 @@ def CheckTicket():
             WinnerTicker += 1
         elif TicketNums[Counter] in SuppNums:
             SuppCatch = True
-        counter += 1
+        Counter += 1
     if WinnerTicker == 7:
         return 1
     elif (WinnerTicker == 6) and (SuppCatch):
