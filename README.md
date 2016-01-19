@@ -1,0 +1,2 @@
+# LotterySim
+Simulates playing OzLotto
