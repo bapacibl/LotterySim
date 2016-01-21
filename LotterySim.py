@@ -15,41 +15,41 @@ from random import *
 
 
 # Player inputs the numbers they want to play the lottery with
-def PlayerInput():
-    TicketNums = []
-    NumLeft = NumBalls
-    while len(TicketNums) < NumBalls:
-        Selected = input("Pick a number from 1-45: ")
-        if (int(Selected) not in TicketNums) and (1 <= int(Selected) <= 45):
-            TicketNums.append(int(Selected))
-            NumLeft -= 1
-        elif (int(Selected) in TicketNums):
+def player_input():
+    ticket_nums = []
+    num_left = num_balls
+    while len(ticket_nums) < num_balls:
+        selected = input("Pick a number from 1-45: ")
+        if (int(selected) not in ticket_nums) and (1 <= int(selected) <= 45):
+            ticket_nums.append(int(selected))
+            num_left -= 1
+        elif (int(selected) in ticket_nums):
             print("You have already selected this number, try again")
-        elif not((1 <= int(Selected) <= 45)):
+        elif not((1 <= int(selected) <= 45)):
             print("This number is not between 1 and 45")
-        print(str(NumLeft) + " Balls left to choose.")
-    return TicketNums
+        print(str(num_left) + " Balls left to choose.")
+    return ticket_nums
 
 
 # Draws the winning numbers out of the pool
-def DrawWinners():
-    WinningNums = []
-    while len(WinningNums) < NumSelected:
-        BallDraw = randint(1, BallPool)
-        if BallDraw not in WinningNums:
-            WinningNums.append(BallDraw)
+def draw_winners():
+    winning_nums = []
+    while len(winning_nums) < num_selected:
+        ball_draw = randint(1, ball_pool)
+        if ball_draw not in winning_nums:
+            winning_nums.append(ball_draw)
 
-    return WinningNums
+    return winning_nums
 
 
 # Draws the supplementary numbers from the pool
-def DrawSupps():
-    Supps = []
-    while len(Supps) < NumSupp:
-        BallDraw = randint (1, BallPool)
-        if (BallDraw not in WinningNums) and (BallDraw not in Supps):
-            Supps.append(BallDraw)
-    return Supps
+def draw_supps():
+    supps = []
+    while len(supps) < num_supp:
+        ball_draw = randint(1, ball_pool)
+        if (ball_draw not in winning_nums) and (ball_draw not in supps):
+            supps.append(ball_draw)
+    return supps
 
 
 # Checks the player ticket against the winning numbers
@@ -65,61 +65,61 @@ def DrawSupps():
 # Division 6: Any 4 main winning numbers
 # Division 7: Any 3 main winning numbers and either supplementary number
 
-def CheckTicket():
-    Counter = 0
-    WinnerTicker = 0
-    SuppCatch = False
-    while Counter < len(TicketNums):
-        if TicketNums[Counter] in WinningNums:
-            WinnerTicker += 1
-        elif TicketNums[Counter] in SuppNums:
-            SuppCatch = True
-        Counter += 1
+def check_ticket():
+    counter = 0
+    winner_ticker = 0
+    supp_catch = False
+    while counter < len(ticket_nums):
+        if ticket_nums[counter] in winning_nums:
+            winner_ticker += 1
+        elif ticket_nums[counter] in supp_nums:
+            supp_catch = True
+        counter += 1
 
 
-    if WinnerTicker == 7:
+    if winner_ticker == 7:
         return 1
-    elif (WinnerTicker == 6) and (SuppCatch):
+    elif (winner_ticker == 6) and (supp_catch):
         return 2
-    elif (WinnerTicker == 6):
+    elif (winner_ticker == 6):
         return 3
-    elif (WinnerTicker == 5) and (SuppCatch):
+    elif (winner_ticker == 5) and (supp_catch):
         return 4
-    elif (WinnerTicker == 5):
+    elif (winner_ticker == 5):
         return 5
-    elif (WinnerTicker == 4):
+    elif (winner_ticker == 4):
         return 6
-    elif (WinnerTicker == 3) and (SuppCatch):
+    elif (winner_ticker == 3) and (supp_catch):
         return 7
     else:
         # Every game that doesn't reach at least div 7
         #  is put into 0, the losers
         return 0
 
-BallPool = 45
-NumBalls = 7
-NumSelected = 7
-NumSupp = 2
-WeekNum = 1
-NumDivisions = 7
-Victories = []
-DivisionWon = 0
+ball_pool = 45
+num_balls = 7
+num_selected = 7
+num_supp = 2
+week_num = 1
+num_divisions = 7
+victories = []
+divisionWon = 0
 
-Victories += NumDivisions * [0]
+victories += num_divisions * [0]
 
-TicketNums = PlayerInput()
+ticket_nums = player_input()
 
-while DivisionWon != 1:
-    WinningNums = DrawWinners()
-    SuppNums = DrawSupps()
-    DivisionWon = CheckTicket()
-    if DivisionWon > 0:
-        Victories[DivisionWon - 1] += 1
-    WeekNum += 1
+while divisionWon != 1:
+    winning_nums = draw_winners()
+    supp_nums = draw_supps()
+    division_won = check_ticket()
+    if division_won > 0:
+        victories[division_won - 1] += 1
+    week_num += 1
 
-    print 'Week {0:7} | {1:28} | {2:8} | {3:25}'.format(WeekNum, WinningNums, SuppNums, Victories)
+    print 'Week {0:7} | {1:28} | {2:8} | {3:25}'.format(week_num, winning_nums, supp_nums, victories)
 
 print("You finally won Div 1!")
-print("It only took " + str(WeekNum) + " weeks!")
-print("That's equal to " + str(WeekNum * 7 / 365.25) + "  years!")
-print(Victories)
+print("It only took " + str(week_num) + " weeks!")
+print("That's equal to " + str(week_num * 7 / 365.25) + "  years!")
+print(victories)
