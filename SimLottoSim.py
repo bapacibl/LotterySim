@@ -5,12 +5,12 @@
 
 from random import *
 
-chanceOfWinning = 45379620
-weekNum = 1
+chance_of_winning = 45379620
+week_num = 1
 
-while (randint(1, chanceOfWinning) != 1):
-    print("Week " + str(weekNum))
-    weekNum += 1
+while (randint(1, chance_of_winning) != 1):
+    print("Week " + str(week_num))
+    week_num += 1
 
 
-print ("You won Div 1 after " + str(weekNum) + " weeks")
+print ("You won Div 1 after " + str(week_num) + " weeks")
